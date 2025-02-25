@@ -1,0 +1,50 @@
+.custom-datepicker {
+    border-radius: 8px !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden;
+    border: none !important; /* Removes border from input field */
+    outline: none !important; /* Removes focus outline */
+  }
+  
+  .custom-calendar {
+    background-color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  .react-datepicker__header {
+    background-color: #ff7f3f;
+    color: white;
+    border-bottom: none;
+    padding: 12px;
+    font-weight: bold;
+  }
+  
+  /* Selected date */
+  .react-datepicker__day--selected {
+    background-color: #ff7f3f !important;
+    color: white !important;
+    border-radius: 50%;
+    border: none !important; /* Removes border from selected day */
+  }
+  
+  /* Hover effect */
+  .react-datepicker__day:hover {
+    background-color: rgba(255, 127, 63, 0.2);
+    border-radius: 50%;
+  }
+
+  .react-datepicker {
+    border: none !important;  /* Removes border around the calendar */
+    box-shadow: none !important; /* Removes shadow */
+  }
+  
+  .react-datepicker__input-container input {
+    border: none !important; /* Removes border from input field */
+    outline: none !important; /* Removes focus outline */
+  }
+  
+  
