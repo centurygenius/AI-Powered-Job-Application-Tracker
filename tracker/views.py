@@ -8,17 +8,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import random
 import requests
+from django.conf import settings
 
 
 # ====================== View for job recommendation =======================
-RAPIDAPI_KEY = '8152c6fbd1msh4d79bce07a2083fp183dc9jsn8841e20172e7'
+rapidapi_key = settings.RAPIDAPI_KEY  # Access API key
 
 @api_view(['GET'])
 def job_recommendations(request):
     query = request.GET.get('query')
     url = "https://jsearch.p.rapidapi.com/search"
     headers = {
-        "x-rapidapi-key": RAPIDAPI_KEY,
+        "x-rapidapi-key": rapidapi_key,
         "x-rapidapi-host": "jsearch.p.rapidapi.com"
     }
     queryString = {"query": query, "page": "1", "num_pages": "1", "country": "US", "date_posted": "all"}

@@ -111,6 +111,7 @@ DATABASES = {
 
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -177,3 +178,6 @@ CORS_ALLOWS_CREDENTIALS = True
 
 # For custom User model
 AUTH_USER_MODEL = 'tracker.User'
+
+# Read API Key from .env
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
