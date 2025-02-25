@@ -177,12 +177,13 @@ SIMPLE_JWT = {
 }
 
 # Settings for the Cors-headers
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",  # React Frontend
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "https://ai-powered-job-application-tracker.vercel.app/",  # React Frontend
+]
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWS_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # For custom User model
 AUTH_USER_MODEL = 'tracker.User'
