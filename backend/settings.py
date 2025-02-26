@@ -33,7 +33,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-v*z_lp2q+d*-dk4y8qy3cfmg=jsld0t@-85%%+_#3wllj&*%ju'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -178,12 +178,15 @@ SIMPLE_JWT = {
 
 # Settings for the Cors-headers
 CORS_ALLOWED_ORIGINS = [
-    "https://ai-powered-job-application-tracker.vercel.app/",  # React Frontend
+    "https://ai-powered-job-application-tracker.vercel.app",  # React Frontend
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWS_CREDENTIALS = True
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://ai-powered-job-application-tracker.vercel.app"
+]
 
 # For custom User model
 AUTH_USER_MODEL = 'tracker.User'
