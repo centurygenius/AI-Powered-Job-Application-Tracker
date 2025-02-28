@@ -89,24 +89,24 @@ const JobDetailPage = () => {
                  
                 <header className='h-20 border flex justify-between items-center px-8 py-2'>
                     <div className='flex items-center justify-center '>
-                        <img src={logo_image} alt='logo-image' className='w-18' />
-                        <h1 className='font-bold cursor-pointer'>Logo</h1>
+                        <img src={logo_image} alt='logo-image' className='w-18 md:block hidden' />
+                        <h1 className='font-bold cursor-pointer md:block hidden'>Logo</h1>
                     </div>
 
                     <div>
                         <ul className='flex gap-4'>
-                            <li className='font-bold hover:underline cursor-pointer  text-center flex items-center gap-1 '><img src={home_icon2} className='w-5 h-5'  alt='home-icon'/><Link to="/">Home</Link></li>
-                            <li className='font-bold hover:underline cursor-pointer text-center flex items-center  '><img src={job_tracking} className='w-5 h-5'  alt='home-icon'/><Link to="/job-tracking">Tracking</Link></li>
+                            <li className='font-bold hover:underline cursor-pointer  text-center lg:flex lg:items-center md:flex md:items-center gap-1  '><img src={home_icon2} className='w-5 h-5'  alt='home-icon'/><Link to="/">Home</Link></li>
+                            <li className='font-bold hover:underline cursor-pointer text-center lg:flex lg:items-center md:flex md:items-center items-center  '><img src={job_tracking} className='w-5 h-5'  alt='home-icon'/><Link to="/job-tracking">Tracking</Link></li>
                         </ul>
                     </div>
 
-                    <div className='flex gap-4'>
+                    <div className='flex gap-6'>
                         <div className='flex items-center'>
-                            <img src={login_icon} alt='login' className='w-15 h-15' />
+                            <img src={login_icon} alt='login' className='w-5 h-5' />
                             <Link to="" className='font-bold'>Hi! <span className="italic text-blue-700">{capitalizeFirstLetter(user.username)}</span></Link>
                         </div>
 
-                        <div className='flex items-center'>
+                        <div className='lg:flex lg:items-center md:flex md:items-center'>
                             <img src={logoutIcon} alt='logout' className='w-5 h-5' />
                             <Link to="/logout" className='font-bold hover:underline cursor-pointer'>Logout</Link>
                         </div>
@@ -117,11 +117,11 @@ const JobDetailPage = () => {
           
                 {/* ==================== Edit job application section ======================= */}
 
-                <section>
+                <section className="px-1">
             
                     <hr className="w-1/2 mx-auto"/>
                     <br/>
-                    <div className='p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl'>
+                    <div className='lg:p-8 md:p-8 bg-gray-400 lg:w-1/2 md:w-1/2 sm:w-full sm:px-1 mx-auto rounded-2xl'>
                         <form onSubmit={handleSubmit}>
                             <input 
                             type="text"
@@ -160,7 +160,7 @@ const JobDetailPage = () => {
                             </div>
 
                             <div className='flex items-center justify-center mt-2'>
-                                <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer  text-white font-bold py-2 px-4 rounded'>
+                                <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer mb-5  text-white font-bold py-2 px-4 rounded'>
                                     Update Job
                                 </button>
                             </div>

@@ -52,29 +52,34 @@ const LoginPage = () => {
 
                     {/* ==================== Header Section ==================== */}
 
-                    <header className='h-20 border flex justify-between items-center px-8 py-2'>
+                    <header className='h-20 border flex items-center justify-between lg:px-8 md:px-4 sm:px-0 py-2 '>
+
+                        {/* Logo Section */}
+
                         <div className='flex items-center justify-center '>
                             <img src={logo_image} alt='logo-image' className='w-18' />
-                            <h1 className='font-bold cursor-pointer'>Logo</h1>
+                            <h1 className='font-bold cursor-pointer md:block hidden'>Logo</h1>
                         </div>
+
+                        {/* Desktop Navigation */}
 
                         <div>
                             <ul className='flex gap-4'>
-                                <li className='font-bold hover:underline cursor-pointer  text-center flex items-center gap-1 '><img src={home_icon2} className='w-5 h-5'  alt='home-icon'/><Link to="/">Home</Link></li>
-                                <li className='font-bold hover:underline cursor-pointer text-center flex items-center  '><img src={job_tracking} className='w-5 h-5'  alt='home-icon'/><Link to="/job-tracking">Tracking</Link></li>
+                                <li className='font-bold hover:underline cursor-pointer  text-center lg:flex lg:items-center md:flex md:items-center gap-1 '><img src={home_icon2} className='w-5 h-5'  alt='home-icon'/><Link to="/">Home</Link></li>
+                                <li className='font-bold hover:underline cursor-pointer text-center lg:flex lg:items-center md:flex md:items-center items-center  '><img src={job_tracking} className='w-5 h-5'  alt='home-icon'/><Link to="/job-tracking">Tracking</Link></li>
                             </ul>
                         </div>
 
-                        <div className='flex gap-4'>
-                        <div className='flex items-center'>
-                            <img src={register_icon} alt='register' className='w-5 h-5' />
-                            <Link to="/register" className='font-bold hover:underline cursor-pointer'>Register</Link>
-                        </div>
+                        <div className='flex gap-4 sm:flex-wrap '>
+                            <div className='lg:flex lg:items-center md:flex md:items-center '>
+                                <img src={register_icon} alt='register' className='w-5 h-5' />
+                                <Link to="/register" className='font-bold hover:underline cursor-pointer'>Register</Link>
+                            </div>
 
-                        <div className='flex items-center'>
-                            <img src={login_icon} alt='login' className='w-8 h-8' />
-                            <Link to="/login" className='font-bold hover:underline cursor-pointer'>Login</Link>
-                        </div>
+                            <div className='lg:flex lg:items-center md:flex md:items-center'>
+                                <img src={login_icon} alt='login' className='w-5 h-5' />
+                                <Link to="/login" className='font-bold hover:underline cursor-pointer'>Login</Link>
+                            </div>
                         </div>
                     </header>
 
@@ -82,8 +87,9 @@ const LoginPage = () => {
 
                     <div className='mx-auto px-8 mb-8 bg-cover bg-center' style={{ backgroundImage: "url('/backgroundImage.jpeg')" }} >
                         <br/>
-                        <div className='p-8 bg-white w-1/2 mx-auto rounded-2xl'>
-                            <h1 className='text-3xl text-center font-bold'>Login</h1>
+                        <div className='lg:p-8 md:p-8 bg-white lg:w-1/2 md:w-1/2 sm:w-full sm:px-1 mx-auto rounded-2xl'>
+                            <br/>
+                            <h1 className='text-3xl text-center  font-bold'>Login</h1>
                             <br/>
                             <form onSubmit={handleSubmit}>
                                 <input 
@@ -111,7 +117,7 @@ const LoginPage = () => {
                                 </div>
 
                                 <div className='flex items-center justify-center mt-2'>
-                                    <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer  text-white font-bold py-2 px-4 rounded'>
+                                    <button type='submit' className='bg-red-500 hover:bg-red-600 mb-5 cursor-pointer  text-white font-bold py-2 px-4 rounded'>
                                         Take Action
                                     </button>
                                 </div>

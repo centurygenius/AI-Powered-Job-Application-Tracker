@@ -112,20 +112,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('SUPABASE_URL'))
+}
+
 # DATABASES = {
 #     'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'EPgPHRxNbbqHYebDGCRBFEQuBAFGZYJK',
-        'HOST': 'turntable.proxy.rlwy.net',
-        'PORT': '52100',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'EPgPHRxNbbqHYebDGCRBFEQuBAFGZYJK',
+#         'HOST': 'turntable.proxy.rlwy.net',
+#         'PORT': '52100',
+#     }
+# }
 
 
 # Password validation
@@ -195,9 +199,9 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://ai-powered-job-application-tracker.vercel.app"
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://ai-powered-job-application-tracker.vercel.app"
+# ]
 
 # For custom User model
 AUTH_USER_MODEL = 'tracker.User'

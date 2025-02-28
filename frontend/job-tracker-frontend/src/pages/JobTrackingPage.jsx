@@ -27,6 +27,8 @@ export default function JobTrackingPage() {
   const [query, setQuery] = useState([]);
   const [jobRecommendations, setJobRecommendations] = useState([]);
   const [loading, setLoading] = useState(false)
+  const [loadingSpinner, setLoadingSpinner] = useState(false)
+  const [spinner, setSpinner] = useState(false)
   const [user, setUser] = useState("");
 
   const navigate = useNavigate();
@@ -62,7 +64,7 @@ export default function JobTrackingPage() {
   // Function to handle job submission
   const handleJobSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoadingSpinner(true);
 
     try {
       const response = await api.post(
@@ -86,7 +88,7 @@ export default function JobTrackingPage() {
     } catch (error) {
       console.error("Error submitting job: ", error);
     } finally{
-      setLoading(false);
+      setLoadingSpinner(false);
     }
   };
 
@@ -104,7 +106,7 @@ export default function JobTrackingPage() {
   const handleResumeSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
+    setSpinner(true);
     try {
       const response = await api.post(
         "/api/resume-feedback/",
@@ -121,7 +123,7 @@ export default function JobTrackingPage() {
     } catch (error) {
       console.error(error);
     } finally{
-      setLoading(false);
+      setSpinner(false);
     }
   };
 
@@ -159,23 +161,23 @@ export default function JobTrackingPage() {
           <header className='h-20 border flex justify-between items-center px-8 py-2'>
               <div className='flex items-center justify-center '>
                   <img src={logo_image} alt='logo-image' className='w-18' />
-                  <h1 className='font-bold cursor-pointer'>Logo</h1>
+                  <h1 className='font-bold cursor-pointer md:block hidden'>Logo</h1>
               </div>
 
               <div>
                   <ul className='flex gap-4'>
-                      <li className='font-bold hover:underline cursor-pointer  text-center flex items-center gap-1 '><img src={home_icon2} className='w-5 h-5'  alt='home-icon'/><Link to="/">Home</Link></li>
-                      <li className='font-bold hover:underline cursor-pointer text-center flex items-center  '><img src={job_tracking} className='w-5 h-5'  alt='home-icon'/><Link to="/job-tracking">Tracking</Link></li>
+                      <li className='font-bold hover:underline cursor-pointer  text-center lg:flex lg:items-center md:flex md:items-center gap-1 '><img src={home_icon2} className='w-5 h-5'  alt='home-icon'/><Link to="/">Home</Link></li>
+                      <li className='font-bold hover:underline cursor-pointer text-center lg:flex lg:items-center md:flex md:items-center items-center  '><img src={job_tracking} className='w-5 h-5'  alt='home-icon'/><Link to="/job-tracking">Tracking</Link></li>
                   </ul>
               </div>
 
-              <div className='flex gap-4'>
+              <div className='flex gap-6  sm:flex-wrap '>
                 <div className='flex items-center'>
-                    <img src={login_icon} alt='login' className='w-15 h-15' />
-                    <Link to="" className='font-bold'>Hi! <span className="italic text-blue-700">{capitalizeFirstLetter(user.username)}</span></Link>
+                    <img src={login_icon} alt='login' className='w-5 h-5' />
+                    <Link to="" className='font-bold '>Hi! <span className="italic text-blue-700 ">{capitalizeFirstLetter(user.username)}</span></Link>
                 </div>
 
-                <div className='flex items-center'>
+                <div className='lg:flex lg:items-center md:flex md:items-center'>
                     <img src={logoutIcon} alt='logout' className='w-5 h-5' />
                     <Link to="/logout" className='font-bold hover:underline cursor-pointer'>Logout</Link>
                 </div>
@@ -192,7 +194,7 @@ export default function JobTrackingPage() {
             <h5 className="text-lg font-bold text-center py-4">Add Job Application</h5>
             <hr className="w-1/2 mx-auto"/>
             <br/>
-            <div className='p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl'>
+            <div className='lg:p-8 md:p-8 bg-gray-400 lg:w-1/2 md:w-1/2 sm:w-full mx-auto rounded-2xl'>
               <form onSubmit={handleJobSubmit}>
                 <input 
                   type="text"
@@ -231,11 +233,11 @@ export default function JobTrackingPage() {
                 </div>
 
                 <div className='mt-2 flex justify-center items-center'>
-                    {loading && <Loader />}
+                    {loadingSpinner && <Loader />}
                 </div>
 
                 <div className='flex items-center justify-center mt-2'>
-                    <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer  text-white font-bold py-2 px-4 rounded'>
+                    <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer mb-5  text-white font-bold py-2 px-4 rounded'>
                         Take Action
                     </button>
                 </div>
@@ -244,13 +246,13 @@ export default function JobTrackingPage() {
           </section>
 
 
-          {/* ==================== Tracked job applications section p-4 md:p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl ======================= */}
+          {/* ==================== Tracked job applications section  ======================= */}
 
           <section className=" ">
             <h2 className="text-xl font-bold text-center py-4">Tracked Job Applications Section</h2>
             <hr className="w-1/2 mx-auto"/>
             <br/>
-            <div className='p-4 md:p-8 bg-gray-400 w-full md:w-3/4 lg:w-1/2 mx-auto rounded-2xl overflow-hidden'>
+            <div className='p-4 md:p-8 bg-gray-400 w-full md:w-3/4 lg:w-3/4 mx-auto rounded-2xl overflow-auto'>
               {
                 jobs.length > 0 ? (
                   <table className="w-full table-auto md:table-auto">
@@ -315,7 +317,7 @@ export default function JobTrackingPage() {
             <hr className="w-1/2 mx-auto"/>
             <br/>
             <h6 className="text-center mb-1">Paste your resume here and we will give you feedback</h6>
-            <div className='p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl'>
+            <div className='p-4 md:p-8 bg-gray-400 w-full md:w-3/4 lg:w-1/2 mx-auto rounded-2xl overflow-hidden'>
                 <form onSubmit={handleResumeSubmit}>
                   <textarea
                     placeholder="Paste your resume here"
@@ -327,7 +329,7 @@ export default function JobTrackingPage() {
                   </textarea>
 
                   <div className='mt-2 flex justify-center items-center'>
-                      {loading && <Loader />}
+                      {spinner && <Loader />}
                   </div>
 
                   <div className='flex items-center justify-center mt-2'>
@@ -339,26 +341,28 @@ export default function JobTrackingPage() {
             </div>
             <br/>
             {/* ====================== Section for resume feedback display ================================ */}
-
-            {
-              feedbacks.length > 0 ? (
-                <div className='p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl'>
-                  <h5 className="text-xl font-bold text-center py-0.5">Resume Feedback</h5>
-                  <ul>
-                    {feedbacks.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                    <p className="text-red-500 text-xl text-center">
-                        No feedback found.
-                        <br/>
-                    </p>
-              )
-              
-            }
-           
+            
+            <div className="lg:p-8 md:p-8 bg-gray-400 lg:w-1/2 md:w-1/2 sm:w-full sm:px-1 mx-auto rounded-2xl">
+                {
+                  feedbacks.length > 0 ? (
+                    <div className='px-1'>
+                      <h5 className="text-xl font-bold text-center py-0.5">Resume Feedback</h5>
+                      <ol>
+                        {feedbacks.map((item, index) => (
+                          <li key={index}>{index + 1}. {item}</li>
+                        ))}
+                      </ol>
+                      <br/>
+                    </div>
+                  ) : (
+                        <p className="text-red-500 text-xl text-center">
+                            No feedback found.
+                            <br/>
+                        </p>
+                  )
+                  
+                }
+            </div>
           </section>
 
            {/* ====================== Section for job recommendations ================================ */}
@@ -368,7 +372,7 @@ export default function JobTrackingPage() {
             <hr className="w-1/2 mx-auto"/>
             <br/>
             <h5 className="text-xl font-bold text-center py-4">Enter your skill for perfect job recommendations</h5>
-            <div className='p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl'>
+            <div className='lg:p-8 md:p-8 bg-gray-400 lg:w-1/2 md:w-1/2 sm:w-full sm:px-1 mx-auto rounded-2xl'>
                 <form onSubmit={handleSkillSubmit}>
                   <input
                     type="text"
@@ -383,7 +387,7 @@ export default function JobTrackingPage() {
                   </div>
 
                   <div className='flex items-center justify-center mt-2'>
-                    <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer  text-white font-bold py-2 px-4 rounded'>
+                    <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer mb-5  text-white font-bold py-2 px-4 rounded'>
                         Get Job Recommendations
                     </button>
                   </div>
@@ -394,7 +398,7 @@ export default function JobTrackingPage() {
             
             {
               jobRecommendations.length > 0 ? (
-                <div className='p-8 bg-gray-400 w-1/2 mx-auto rounded-2xl'>
+                <div className='lg:p-8 md:p-8 bg-gray-400 lg:w-1/2 md:w-1/2 sm:w-full sm:px-1 mx-auto rounded-2xl'>
                   <h5 className="text-xl font-bold text-center py-0.5">Recommended Jobs</h5>
                   <p className="text-center">(Click on job title to apply)</p>
                   
@@ -402,10 +406,13 @@ export default function JobTrackingPage() {
                       
                       <ul key={index}>
                         <hr/>
+                        <br/>
+                        <span>{index + 1}.</span>
                         <li><span className="font-semibold">Employer name:</span> {item.employer_name}</li>
                         <li><a href={item.job_apply_link} target="_blank" className="text-blue-700 " ><span className="font-semibold">Job title:</span> {item.job_title}</a></li>
                         <li><span className="font-semibold">Job employment type:</span> {item.job_employment_type}</li>
                         <li><span className="font-semibold">Job location:</span> {item.job_location}</li>
+                        <br/>
                         <hr/>
                       </ul>
                       
