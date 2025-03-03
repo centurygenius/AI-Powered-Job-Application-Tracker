@@ -197,14 +197,16 @@ SIMPLE_JWT = {
 
 # Settings for the Cors-headers
 CORS_ALLOWED_ORIGINS = [
-    "https://ai-powered-job-application-tracker.vercel.app",  # React Frontend
+    "https://ai-powered-job-application-tracker.vercel.app",
+    "https://ai-powered-job-application-tracker-rg1u13zdr.vercel.app",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://ai-powered-job-application-tracker.vercel.app"
+    "https://ai-powered-job-application-tracker.vercel.app",
+    "https://ai-powered-job-application-tracker-rg1u13zdr.vercel.app",
 ]
 
 # For custom User model

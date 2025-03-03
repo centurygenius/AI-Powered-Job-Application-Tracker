@@ -24,7 +24,7 @@ const LoginPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await api.post("/api/token/", {email, password});
+            const res = await api.post("/token/", {email, password});
             if(res){
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);

@@ -44,7 +44,7 @@ const JobDetailPage = () => {
     useEffect(() => {
         const fetchJob = async () => {
             try {
-                const response = await api.get(`/api/job-applications/${jobId}/`);
+                const response = await api.get(`/job-applications/${jobId}/`);
                 const job = response.data;
                 
                 // Populate form with existing job data
@@ -69,7 +69,7 @@ const JobDetailPage = () => {
         e.preventDefault();
    
         try {
-            await api.put(`/api/job-applications/${jobId}/`, 
+            await api.put(`/job-applications/${jobId}/`, 
             {
                 job_title: jobtitle, 
                 company: company, 

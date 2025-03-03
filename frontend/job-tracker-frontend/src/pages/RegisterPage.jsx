@@ -27,7 +27,7 @@ const RegisterPage = () => {
         setLoading(true);
 
         try{
-            const res = await api.post("/api/register/", {email, username, password, password2});
+            const res = await api.post("/register/", {email, username, password, password2});
             if(res){
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);

@@ -54,7 +54,7 @@ export default function JobTrackingPage() {
   // Handle delete function
   const handleJobDelete = async (jobId) => {
     try {
-      await api.delete(`/api/job-applications/${jobId}/`);
+      await api.delete(`/job-applications/${jobId}/`);
       console.log("Job deleted successfully");
       // Remove deleted job from the UI
       setJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
@@ -97,7 +97,7 @@ export default function JobTrackingPage() {
 
     try {
       const response = await api.post(
-        "/api/job-applications/",
+        "/job-applications/",
         {
           job_title: jobtitle,
           company: company,
@@ -157,7 +157,7 @@ export default function JobTrackingPage() {
   // Fetch all jobs
   useEffect(() => {
     api
-      .get("/api/job-applications/")
+      .get("/job-applications/")
       .then((res) => res.data)
       .then(data => {setJobs(data); console.log("Available jobs: ", data);})
       .catch((err) => console.error("Error fetching jobs", err));
@@ -170,7 +170,7 @@ export default function JobTrackingPage() {
     setSpinner(true);
     try {
       const response = await api.post(
-        "/api/resume-feedback/",
+        "/resume-feedback/",
         {
           resumeText: resumeText,
         },
@@ -226,7 +226,7 @@ export default function JobTrackingPage() {
     setLoading(true);
     try {
       const response = await api.get(
-        "/api/job-recommendations/",
+        "/job-recommendations/",
         
         {params: { query: query }}
         
@@ -274,7 +274,7 @@ export default function JobTrackingPage() {
       console.error(error);
 
       const response = await api.get(
-        "/api/job-recommendations/",
+        "/job-recommendations/",
         
         {params: { query: query }}
         
