@@ -8,7 +8,10 @@ import job_tracking from '../assets/job_tracking.png';
 import login_icon from '../assets/login_icon.png';
 import deleteIcon from '../assets/deleteIcon.png';
 import logoutIcon from '../assets/logoutIcon.png';
-import api from "../api"; // Ensure you have an Axios instance set up
+import api from "../api";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
 
 
 const JobDetailPage = () => {
@@ -75,9 +78,35 @@ const JobDetailPage = () => {
                 applied_date: appliedDate
             });
             console.log("Job updated successfully");
+
+            // Implement toastify alert
+            toast.success('🦄 Update successful!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
             navigate("/job-tracking"); // Redirect after update
         } catch (error) {
             console.error("Error updating job:", error);
+
+            // Implement toastify alert
+            toast.error('❌ Something went wrong!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
         } 
     };
 
@@ -156,11 +185,18 @@ const JobDetailPage = () => {
                             </textarea>
 
                             <div className="w-40 py-2 px-4 border-gray-300 rounded-md focus:outline-none border-b">
-                            <CustomDatePicker onChange={(e) => setAppliedDate(e.target.value)} value={appliedDate}  />
+                            <CustomDatePicker onChange={(date) => setAppliedDate(date.toISOString().split("T")[0])} value={appliedDate}  />
                             </div>
 
-                            <div className='flex items-center justify-center mt-2'>
-                                <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer mb-5  text-white font-bold py-2 px-4 rounded'>
+                            
+
+                            <div className='flex items-center justify-center mt-2 gap-1'>
+                                <Link to="/job-tracking" className='font-bold hover:underline cursor-pointer'>
+                                    <button type='submit' className='bg-red-500 hover:bg-red-600 cursor-pointer mb-5  text-white font-bold py-2 px-4 rounded'>
+                                        Cancel
+                                    </button>
+                                </Link>
+                                <button type='submit' className='bg-blue-500 hover:bg-blue-600 cursor-pointer mb-5  text-white font-bold py-2 px-4 rounded'>
                                     Update Job
                                 </button>
                             </div>

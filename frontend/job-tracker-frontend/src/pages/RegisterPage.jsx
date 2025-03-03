@@ -7,6 +7,10 @@ import login_icon from '../assets/login_icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../contants';
 import api from "../api";
+import Loader from "../components/Loader";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
 
 const RegisterPage = () => {
 
@@ -27,6 +31,21 @@ const RegisterPage = () => {
             if(res){
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+
+                // Implement alert using toastify
+                if (res.status === 201) {
+                    toast.success('🦄 Register successful!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        transition: Bounce,
+                    });
+                }
                 navigate("/login");
             }else {
                 console.log("Registration failed!");
@@ -34,6 +53,20 @@ const RegisterPage = () => {
             }
         } catch (error){
             console.log(error);
+            // Implement alert using toastify
+            toast.error('❌ Registration failed!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+
+            navigate("/");
         } finally{
             setLoading(false);
         }
@@ -111,7 +144,7 @@ const RegisterPage = () => {
                                     name='password' 
                                     value={password} 
                                     onChange={(e) =>  setPassword(e.target.value) } 
-                                    placeholder="Password" 
+                                    placeholder="Password(At least 8 characters)" 
                                     className="w-full py-2 px-4 border-gray-300 rounded-md focus:outline-none border-b" 
                                     required 
                                 />

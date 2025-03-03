@@ -39,7 +39,9 @@ IMPROVEMENTS = [
 
 @api_view(['POST'])
 def resume_feedback(request):
-    resumeText = request.data.get('resumeText', '')
+    resumeText = request.data.get('resumeText')
+    if not resumeText:
+        return Response({"feedback": "Resume text is required."}, status=400)
     feedback = random.sample(IMPROVEMENTS, k=3)
     return Response({"feedback": feedback})
 

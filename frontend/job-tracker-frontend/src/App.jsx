@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LogOut from './components/LogOut';
 import "./index.css";
 import JobDetailPage from './pages/JobDetailPage';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -34,6 +35,7 @@ function App() {
           } />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <ToastContainer />
     </Router>
   )
 }

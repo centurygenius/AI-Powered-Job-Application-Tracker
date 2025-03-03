@@ -24,8 +24,8 @@ class JobApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=255)
     company = models.CharField(max_length=255)
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Applied')
-    applied_date = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='applied')
+    applied_date = models.DateField(blank=True, null=True)
     notes = models.TextField(blank=True)
 
     def __str__(self):

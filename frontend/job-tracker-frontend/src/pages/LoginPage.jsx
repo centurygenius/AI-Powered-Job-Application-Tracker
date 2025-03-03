@@ -8,6 +8,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from "../api";
 import Loader from "../components/Loader";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../contants';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
 
 const LoginPage = () => {
 
@@ -31,15 +34,46 @@ const LoginPage = () => {
                 // Store user data
                 localStorage.setItem("user", JSON.stringify(userData));
 
+                // Implement alert using toastify
+                if (res.status === 200) {
+                    toast.success('🦄 Login successful!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        transition: Bounce,
+                    });
+                }
+
                 navigate("/job-tracking");
                 console.log("Login successful!", res.data);
                 console.log("User data: ", userData);
+                console.log("Response: ", res);
             }else{
                 navigate("/");
                 console.log("Login failed!");
             }
         } catch (error){
-            console.log(error);
+            console.log("Error response: ", error);
+            // Implement alert using toastify
+            if (error.response.status === 401) {
+                toast.error('❌ Something went wrong!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            }
+            navigate("/");
         } finally{
             setLoading(false);
         }

@@ -13,6 +13,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from "../api";
 import Loader from "../components/Loader";
 import CustomDatePicker from "../components/CustomDatePicker";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
 
 
 export default function JobTrackingPage() {
@@ -21,7 +24,7 @@ export default function JobTrackingPage() {
   const [company, setCompany] = useState("");
   const [notes, setNotes] = useState("");
   const [appliedDate, setAppliedDate] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("applied");
   const [resumeText, setResumeText] = useState("");
   const [feedbacks, setFeedbacks] = useState([]);
   const [query, setQuery] = useState([]);
@@ -55,9 +58,35 @@ export default function JobTrackingPage() {
       console.log("Job deleted successfully");
       // Remove deleted job from the UI
       setJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+
+      // Implement toatify alert
+      toast.success('🦄 Deleted successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
       
     } catch (error) {
       console.error("Error deleting job: ", error);
+
+      // Implement toastify alert
+      toast.error('❌ Something went wrong!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   }
   
@@ -78,6 +107,7 @@ export default function JobTrackingPage() {
         },
         
       );
+
       console.log("Job submitted successfully: ", response.data);
       const newJob = response.data;
       setJobTitle(newJob.job_title);
@@ -85,8 +115,39 @@ export default function JobTrackingPage() {
       setNotes(newJob.notes);
       setAppliedDate(newJob.applied_date);
       setStatus(newJob.status);
+      setJobs((prevJobs) => [...prevJobs, response.data]);
+
+      // Implement alert using toastify
+      if (response.status === 201) {
+        toast.success('🦄 Job submitted successfully!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+      }
+
     } catch (error) {
       console.error("Error submitting job: ", error);
+      // Implement alert using toastify
+      if (error.response.status === 400) {
+          toast.error('❌ Something went wrong!', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Bounce,
+          });
+      }
     } finally{
       setLoadingSpinner(false);
     }
@@ -117,11 +178,43 @@ export default function JobTrackingPage() {
       );
       console.log("Resume submit: ", response.data);
       console.log("Feedback: ", response.data.feedback);
+      console.log("Response: ", response);
       const newFeedback = response.data;
       setResumeText("");
       setFeedbacks(newFeedback.feedback);
+
+      // Implement alert using toastify
+      if (response.status === 200) {
+        toast.success('🦄 Resume submitted successfully!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+      }
+
     } catch (error) {
       console.error(error);
+      // Implement alert using toastify
+      if (error.response.status === 400) {
+        toast.error('❌ Something went wrong!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+      }
+
     } finally{
       setSpinner(false);
     }
@@ -142,11 +235,67 @@ export default function JobTrackingPage() {
       const newJobRecommendations = response.data;
       const res = newJobRecommendations.recommendations;
       console.log("Skill submit: ", response.data);
-      console.log("Job Recommendations: ", newJobRecommendations.recommendations);
+      console.log("Job Recommendations: ", res);
       setQuery("");
       setJobRecommendations(res.data);
+
+      if (res.status === 'ERROR') {
+        toast.info('Please input query parameter', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+        alert(res.error.message);
+        console.log("Res Error Message:", res.error.message);
+      }
+
+
+      // Implement alert using toastify
+      toast.success('🦄 Jobs fetched successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+
+      
     } catch (error) {
       console.error(error);
+
+      const response = await api.get(
+        "/api/job-recommendations/",
+        
+        {params: { query: query }}
+        
+      );
+      const newJobRecommendations = response.data;
+      const res = newJobRecommendations.recommendations;
+
+      // Implement alert using toastify
+      toast.error('❌ Something went wrong!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+
+      
     } finally{
       setLoading(false);
     }
@@ -229,7 +378,7 @@ export default function JobTrackingPage() {
                 </textarea>
 
                 <div className="w-40 py-2 px-4 border-gray-300 rounded-md focus:outline-none border-b">
-                <CustomDatePicker onChange={setAppliedDate}   />
+                <CustomDatePicker onChange={(date) => setAppliedDate(date.toISOString().split("T")[0])}   />
                 </div>
 
                 <div className='mt-2 flex justify-center items-center'>
@@ -246,7 +395,7 @@ export default function JobTrackingPage() {
           </section>
 
 
-          {/* ==================== Tracked job applications section  ======================= */}
+          {/* ==================== Job applications display section  ======================= */}
 
           <section className=" ">
             <h2 className="text-xl font-bold text-center py-4">Tracked Job Applications Section</h2>
@@ -272,7 +421,7 @@ export default function JobTrackingPage() {
 
                       {jobs.map((job, index) => (
 
-                        <tr key={job.id} className=" ">
+                        <tr key={job.id} className="border ">
 
                           <td className="border">{index + 1}</td>
                           <td className="border">{job.job_title}</td>
@@ -280,7 +429,7 @@ export default function JobTrackingPage() {
                           <td className="border">{job.status}</td>
                           <td className="border">{job.applied_date}</td>
                           <td className="border">{job.notes}</td>
-                          <td className="border ">
+                          <td className=" " style={{}}>
                             <button onClick={() => handleJobDelete(job.id)} className="cursor-pointer  text-white ">
                               <img src={deleteIcon} className="w-8 h-7 ml-1 mr-1 rounded-full" />
                               
@@ -356,7 +505,7 @@ export default function JobTrackingPage() {
                     </div>
                   ) : (
                         <p className="text-red-500 text-xl text-center">
-                            No feedback found.
+                          No feedback found.
                             <br/>
                         </p>
                   )
@@ -427,12 +576,6 @@ export default function JobTrackingPage() {
               )
               
             }
-
-                
-                
-                
-
-            
           </section>
 
 

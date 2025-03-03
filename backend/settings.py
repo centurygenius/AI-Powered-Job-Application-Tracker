@@ -30,7 +30,7 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v*z_lp2q+d*-dk4y8qy3cfmg=jsld0t@-85%%+_#3wllj&*%ju'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -100,37 +100,41 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+if os.getenv('ENVIRONMENT') == 'production':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME_DEV'),
+            'USER': os.getenv('DB_USER_DEV'),
+            'PASSWORD': os.getenv('DB_PASSWORD_DEV'),
+            'HOST': os.getenv('DB_HOST_DEV'),
+            'PORT': os.getenv('DB_PORT_DEV'),
+        }
+    }
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DB_NAME'),
-#         'USER': os.getenv('DB_USER'),
-#         'PASSWORD': os.getenv('DB_PASSWORD'),
-#         'HOST': os.getenv('DB_HOST'),
-#         'PORT': os.getenv('DB_PORT'),
-#     }
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL'),
+#         conn_max_age=600,
+#         ssl_require=True,
+#         ),
+    
 # }
-
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('SUPABASE_URL'))
-}
 
 # DATABASES = {
 #     'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 # }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'EPgPHRxNbbqHYebDGCRBFEQuBAFGZYJK',
-#         'HOST': 'turntable.proxy.rlwy.net',
-#         'PORT': '52100',
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -199,9 +203,9 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-# CSRF_TRUSTED_ORIGINS = [
-#     "https://ai-powered-job-application-tracker.vercel.app"
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://ai-powered-job-application-tracker.vercel.app"
+]
 
 # For custom User model
 AUTH_USER_MODEL = 'tracker.User'
