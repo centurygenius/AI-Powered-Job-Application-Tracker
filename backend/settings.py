@@ -201,12 +201,35 @@ CORS_ALLOWED_ORIGINS = [
     "https://ai-powered-job-application-tracker-rg1u13zdr.vercel.app",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://ai-powered-job-application-tracker.vercel.app",
     "https://ai-powered-job-application-tracker-rg1u13zdr.vercel.app",
+]
+
+# Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS"
+]
+
+# Allow all headers
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 
 # For custom User model
